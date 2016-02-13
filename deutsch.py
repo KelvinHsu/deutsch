@@ -1,3 +1,4 @@
+#!/home/kelvin/Enthought/Canopy_64bit/User/bin/python
 from bs4 import BeautifulSoup
 import urllib2
 import re
