@@ -5,6 +5,7 @@ import re
 
 # Functions define
 def verbformen(key):
+    # Source: http://www.verbformen.de/
     response = urllib2.urlopen('http://www.verbformen.de/konjugation/?i=' + key)
     html = response.read()
 
@@ -28,6 +29,18 @@ def verbformen(key):
     
     return result
 
+# Incomplete  
+def verbbedeutung(key):
+    # Source: http://www.linguee.com/english-german
+    response = urllib2.urlopen('http://www.linguee.com/english-german/search?source=auto&query=' + key)
+    html = response.read()
+    
+    parse = BeautifulSoup(html, 'html.parser')
+    mainfield = parse.find_all('div', class_="translation_lines")
+    field = mainfield[0].find_all('div', class_='translation featured')
+    num = len(field)
+    
+    
 # Main func
-keyword = raw_input('Keyword: ')
+keyword = raw_input('Keyword:')
 print(verbformen(keyword))
