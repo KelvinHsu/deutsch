@@ -1,12 +1,14 @@
 #!/Users/kelvin/Library/Enthought/Canopy_64bit/User/bin/pythonw
+# -*- coding: utf-8 -*-
 from bs4 import BeautifulSoup
+import urllib
 import urllib2
 import re
 
 # Functions define
 def verbformen(key):
     # Source: http://www.verbformen.de/
-    url = 'http://www.verbformen.de/konjugation/?i=' + key
+    url = 'http://www.verbformen.de/konjugation/?i={}'.format(key)
     print(url)
     response = urllib2.urlopen(url)
     html = response.read()
@@ -29,12 +31,14 @@ def verbformen(key):
     string = tem_0 + ', ' + tem_1 + ', ' + tem_2
     result = delete.sub('', string)
     
-    return result
+    return result.encode('utf-8')
 
 # Incomplete  
 def verbbedeutung(key):
     # Source: http://www.linguee.com/english-german
-    response = urllib2.urlopen('http://www.linguee.com/english-german/search?source=auto&query=' + key)
+    url = 'http://www.linguee.com/english-german/search?source=auto&query=' + key
+    print url
+    response = urllib2.urlopen(url)
     html = response.read()
     
     parse = BeautifulSoup(html, 'html.parser')
@@ -49,11 +53,13 @@ def verbbedeutung(key):
     
 # Main func
 while True:
+    #encoding = 'utf-8' if sys.stdin.encoding in (None, 'ascii') else sys.stdin.encoding
     keyword = raw_input('Keyword (type \'exit\' to leave): ')
+    keyword = urllib.quote(keyword)
     if keyword == 'exit':
         break
     else:
-        print( u"({} )".format(verbformen(keyword)) )
+        print( "({} )".format(verbformen(keyword)) )
         bedeutungen = verbbedeutung(keyword)
         count = 1
         for bedeutung in bedeutungen:
