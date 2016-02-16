@@ -38,7 +38,6 @@ def verbformen(key):
     
     return result.encode('utf-8')
 
-# Incomplete  
 def bedeutung(key):
     # Source: http://www.linguee.com/english-german
     linguee = 'http://www.linguee.com/english-german/search?source=auto&query='
